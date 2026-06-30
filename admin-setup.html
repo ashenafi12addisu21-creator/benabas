@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benabas - Admin Setup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #020617 0%, #0f172a 100%);
+            color: #f1f5f9;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: #94a3b8;
+            font-size: 0.95em;
+        }
+
+        .setup-box {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border: 1px solid #334155;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .setup-title {
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #6366f1;
+        }
+
+        .instructions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .instruction-step {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 12px;
+            border-radius: 6px;
+            border-left: 3px solid #6366f1;
+            font-size: 0.95em;
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+
+        .code-box {
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            overflow-x: auto;
+            color: #10b981;
+            position: relative;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 8px 12px;
+            background: #6366f1;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #4f46e5;
+            transform: scale(1.05);
+        }
+
+        .admin-code {
+            background: #0f172a;
+            border: 2px solid #10b981;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .admin-code-title {
+            color: #10b981;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .admin-code-value {
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+            color: #10b981;
+            word-break: break-all;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .admin-code-copy {
+            padding: 10px 20px;
+            background: #10b981;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .admin-code-copy:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95em;
+            width: 100%;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+        }
+
+        .success-message {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid #10b981;
+            color: #10b981;
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin-top: 10px;
+            display: none;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .warning {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid #ef4444;
+            color: #fca5a5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .warning-title {
+            color: #ef4444;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🔐</div>
+            <h1>Admin Setup</h1>
+            <p class="subtitle">Benabas Enterprise - Lifetime Free Admin Access</p>
+        </div>
+
+        <div class="warning">
+            <div class="warning-title">⚠️ Important</div>
+            <p>Save your admin code in a safe place. You'll need it to access your admin dashboard forever.</p>
+        </div>
+
+        <div class="setup-box">
+            <div class="setup-title">🔑 YOUR ADMIN CODE (NEVER SHARE!)</div>
+            <div class="admin-code">
+                <div class="admin-code-title">YOUR LIFETIME FREE ADMIN CODE</div>
+                <div class="admin-code-value" id="adminCodeDisplay">ADMIN-BENABAS-2026-ASHENAFI-LIFETIME-FREE-001</div>
+                <button class="admin-code-copy" onclick="copyAdminCode()">📋 Copy Admin Code</button>
+                <div class="success-message" id="codeCopySuccess">✅ Admin code copied to clipboard!</div>
+            </div>
+        </div>
+
+        <div class="setup-box">
+            <div class="setup-title">📋 How to Setup (3 Steps)</div>
+            <div class="instructions">
+                <div class="instruction-step">
+                    <strong>Step 1:</strong> Open browser console (Press F12)
+                </div>
+                <div class="instruction-step">
+                    <strong>Step 2:</strong> Paste this code:
+                    <div class="code-box">
+                        localStorage.setItem('admin_code', 'ADMIN-BENABAS-2026-ASHENAFI-LIFETIME-FREE-001');
+localStorage.setItem('is_admin', 'true');
+localStorage.setItem('admin_free', 'unlimited');
+                        <button class="copy-btn" onclick="copySetupCode()">Copy</button>
+                    </div>
+                </div>
+                <div class="instruction-step">
+                    <strong>Step 3:</strong> Press Enter, then go to index.html and click "Admin Panel"
+                </div>
+            </div>
+        </div>
+
+        <div class="setup-box">
+            <div class="setup-title">✨ What You Get (FREE FOREVER)</div>
+            <div style="display: flex; flex-direction: column; gap: 10px; color: #cbd5e1;">
+                <p>✅ Unlimited video generation</p>
+                <p>✅ Unlimited image generation</p>
+                <p>✅ All qualities (360p - 4K)</p>
+                <p>✅ Full video editor</p>
+                <p>✅ Admin dashboard</p>
+                <p>✅ User management</p>
+                <p>✅ Revenue tracking</p>
+                <p>✅ ZERO credit costs</p>
+                <p>✅ LIFETIME ACCESS</p>
+            </div>
+        </div>
+
+        <button class="btn" onclick="goToApp()">🚀 Go to Benabas App</button>
+    </div>
+
+    <script>
+        function copyAdminCode() {
+            const code = document.getElementById('adminCodeDisplay').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const msg = document.getElementById('codeCopySuccess');
+                msg.style.display = 'block';
+                setTimeout(() => {
+                    msg.style.display = 'none';
+                }, 3000);
+            });
+        }
+
+        function copySetupCode() {
+            const code = `localStorage.setItem('admin_code', 'ADMIN-BENABAS-2026-ASHENAFI-LIFETIME-FREE-001');
+localStorage.setItem('is_admin', 'true');
+localStorage.setItem('admin_free', 'unlimited');`;
+            navigator.clipboard.writeText(code);
+            alert('✅ Setup code copied! Paste in console (F12)');
+        }
+
+        function goToApp() {
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

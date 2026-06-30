@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benabas - Premium AI Media Studio SaaS</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1 class="logo">🎬 Benabas</h1>
+                <p class="tagline">Enterprise AI Media</p>
+            </div>
+
+            <nav class="sidebar-nav">
+                <button class="nav-btn active" data-section="dashboard">
+                    <span class="icon">📊</span>
+                    <span>Dashboard</span>
+                </button>
+                <button class="nav-btn" data-section="text-to-video">
+                    <span class="icon">📝</span>
+                    <span>Text → Video</span>
+                </button>
+                <button class="nav-btn" data-section="image-to-video">
+                    <span class="icon">🖼️</span>
+                    <span>Image → Video</span>
+                </button>
+                <button class="nav-btn" data-section="text-to-image">
+                    <span class="icon">✨</span>
+                    <span>Text → Image</span>
+                </button>
+                <button class="nav-btn" data-section="video-editor">
+                    <span class="icon">🎞️</span>
+                    <span>Video Editor</span>
+                </button>
+                <button class="nav-btn" data-section="gallery">
+                    <span class="icon">📸</span>
+                    <span>Gallery</span>
+                </button>
+                <button class="nav-btn" data-section="billing">
+                    <span class="icon">💳</span>
+                    <span>Billing</span>
+                </button>
+                <button class="nav-btn" data-section="admin" id="adminBtn" style="display:none;">
+                    <span class="icon">👑</span>
+                    <span>Admin Panel</span>
+                </button>
+                <button class="nav-btn" data-section="settings">
+                    <span class="icon">⚙️</span>
+                    <span>Settings</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="credits-card">
+                    <p class="credits-label">💎 Credits</p>
+                    <p class="credits-value" id="creditDisplay">50</p>
+                    <p class="credits-sublabel">Available</p>
+                </div>
+                <button class="btn-buy-credits">🛒 Buy Credits</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <h2 id="sectionTitle">Dashboard</h2>
+                    <p id="sectionSubtitle">Welcome to Benabas Enterprise</p>
+                </div>
+                <div class="header-right">
+                    <button class="btn-icon" title="Notifications">
+                        <span>🔔</span>
+                        <span class="badge" id="notificationBadge">3</span>
+                    </button>
+                    <button class="btn-icon" title="Help">
+                        <span>❓</span>
+                    </button>
+                    <div class="user-profile" id="userProfile">
+                        <img src="https://via.placeholder.com/40" alt="User">
+                        <div class="user-menu">
+                            <p id="userName">User</p>
+                            <p id="userEmail">user@example.com</p>
+                            <button id="logoutBtn">Logout</button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content-area">
+
+                <!-- Dashboard Section -->
+                <section id="dashboard" class="section active">
+                    <div class="dashboard-grid">
+                        <!-- Quick Stats -->
+                        <div class="stat-card">
+                            <div class="stat-icon">🎬</div>
+                            <div class="stat-content">
+                                <p class="stat-label">Videos Generated</p>
+                                <p class="stat-value" id="statsVideos">0</p>
+                                <p class="stat-change">+0 this month</p>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon">🖼️</div>
+                            <div class="stat-content">
+                                <p class="stat-label">Images Generated</p>
+                                <p class="stat-value" id="statsImages">0</p>
+                                <p class="stat-change">+0 this month</p>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon">💎</div>
+                            <div class="stat-content">
+                                <p class="stat-label">Credits Used</p>
+                                <p class="stat-value" id="statsCreditsUsed">0</p>
+                                <p class="stat-change">50 remaining</p>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon">💰</div>
+                            <div class="stat-content">
+                                <p class="stat-label">Total Spent</p>
+                                <p class="stat-value" id="statsTotalSpent">$0.00</p>
+                                <p class="stat-change">Free user</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="recent-activity">
+                        <h3>📋 Recent Activity</h3>
+                        <div class="activity-list" id="activityList">
+                            <div class="activity-item">
+                                <span class="activity-icon">🎉</span>
+                                <span class="activity-text">Welcome to Benabas! Start creating content</span>
+                                <span class="activity-time">just now</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Text to Video Section -->
+                <section id="text-to-video" class="section">
+                    <div class="section-grid">
+                        <div class="form-panel">
+                            <form id="textToVideoForm">
+                                <div class="form-group">
+                                    <label>📝 Your Script</label>
+                                    <textarea id="textInput" placeholder="Write your video script here..." rows="6"></textarea>
+                                    <span class="char-count"><span id="charCount">0</span>/5000</span>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>🤖 AI Provider</label>
+                                        <select id="videoProvider">
+                                            <option value="openai">OpenAI</option>
+                                            <option value="heygen">HeyGen</option>
+                                            <option value="runwayml">Runway ML</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>📺 Quality</label>
+                                        <select id="videoQuality">
+                                            <option value="360">360p (5 credits)</option>
+                                            <option value="720">720p (10 credits)</option>
+                                            <option value="1080" selected>1080p (15 credits)</option>
+                                            <option value="4k">4K (30 credits)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>⏱️ Duration (seconds)</label>
+                                        <input type="number" id="videoDuration" min="60" max="600" value="60">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>🎨 Style</label>
+                                        <select id="videoStyle">
+                                            <option value="cinematic">Cinematic</option>
+                                            <option value="professional">Professional</option>
+                                            <option value="casual">Casual</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn-primary btn-large" id="generateVideoBtn">
+                                    <span>🚀 Generate Video</span>
+                                </button>
+                            </form>
+                        </div>
+
+                        <div class="preview-panel">
+                            <div class="preview-box">
+                                <h3>📊 Cost Estimate</h3>
+                                <div class="estimate">
+                                    <div class="estimate-row">
+                                        <span>Quality:</span>
+                                        <span id="estimateQuality">1080p</span>
+                                    </div>
+                                    <div class="estimate-row">
+                                        <span>Duration:</span>
+                                        <span id="estimateDuration">60s</span>
+                                    </div>
+                                    <div class="estimate-row">
+                                        <span>Credits Needed:</span>
+                                        <span id="estimateCredits">15</span>
+                                    </div>
+                                    <div class="estimate-row highlight">
+                                        <span>Your Credits:</span>
+                                        <span id="estimateYourCredits">50</span>
+                                    </div>
+                                </div>
+                                <div class="warning-box" id="warningBox" style="display:none;">
+                                    ⚠️ Not enough credits. Please buy more.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Image to Video Section -->
+                <section id="image-to-video" class="section">
+                    <div class="section-grid">
+                        <div class="form-panel">
+                            <form id="imageToVideoForm">
+                                <div class="form-group">
+                                    <label>🖼️ Upload Image</label>
+                                    <div class="file-upload">
+                                        <input type="file" id="imageUpload" accept="image/*">
+                                        <div class="upload-placeholder">
+                                            <span class="upload-icon">📤</span>
+                                            <p>Drag & drop or click</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>🤖 Provider</label>
+                                        <select id="imageVideoProvider">
+                                            <option value="heygen">HeyGen</option>
+                                            <option value="runwayml">Runway ML</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>📺 Quality</label>
+                                        <select id="imageVideoQuality">
+                                            <option value="1080" selected>1080p (20 credits)</option>
+                                            <option value="4k">4K (40 credits)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn-primary btn-large">
+                                    🚀 Create Video
+                                </button>
+                            </form>
+                        </div>
+                        <div class="preview-panel">
+                            <div id="imagePreview" class="preview-box">
+                                <p>Image preview</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Text to Image Section -->
+                <section id="text-to-image" class="section">
+                    <div class="section-grid">
+                        <div class="form-panel">
+                            <form id="textToImageForm">
+                                <div class="form-group">
+                                    <label>✨ Image Description</label>
+                                    <textarea id="imagePrompt" placeholder="Describe the image..." rows="6"></textarea>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>🤖 Provider</label>
+                                        <select id="imageProvider">
+                                            <option value="openai">OpenAI DALL-E</option>
+                                            <option value="stability">Stability AI</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>📐 Aspect Ratio</label>
+                                        <select id="imageSize">
+                                            <option value="1024x1024">Square (8 credits)</option>
+                                            <option value="1792x1024">Wide (10 credits)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn-primary btn-large">
+                                    ✨ Generate Image
+                                </button>
+                            </form>
+                        </div>
+                        <div class="preview-panel">
+                            <div id="generatedImage" class="preview-box">
+                                <p>Generated image</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Video Editor Section -->
+                <section id="video-editor" class="section">
+                    <div class="editor-container">
+                        <h3>🎞️ Video Editor</h3>
+                        <div class="editor-grid">
+                            <div class="editor-tools">
+                                <h4>Editing Tools</h4>
+                                <button class="tool-btn">✂️ Trim</button>
+                                <button class="tool-btn">🔊 Audio</button>
+                                <button class="tool-btn">📝 Subtitles</button>
+                                <button class="tool-btn">🎨 Filters</button>
+                                <button class="tool-btn">⏱️ Speed</button>
+                                <button class="tool-btn">🎵 Music</button>
+                            </div>
+                            <div class="editor-preview">
+                                <p>Video editor - Professional editing tools</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Gallery Section -->
+                <section id="gallery" class="section">
+                    <div class="gallery-container">
+                        <h3>📸 Gallery</h3>
+                        <div class="gallery-controls">
+                            <input type="search" placeholder="🔍 Search...">
+                            <select>
+                                <option>All</option>
+                                <option>Videos</option>
+                                <option>Images</option>
+                            </select>
+                        </div>
+                        <div class="gallery-grid" id="galleryGrid">
+                            <p>Your generated media will appear here</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Billing Section -->
+                <section id="billing" class="section">
+                    <div class="billing-container">
+                        <h3>💳 Billing & Credits</h3>
+                        
+                        <!-- Current Plan -->
+                        <div class="current-plan">
+                            <h4>Current Plan</h4>
+                            <div class="plan-card">
+                                <div class="plan-name">Free Tier</div>
+                                <div class="plan-limit">5 videos/month</div>
+                                <div class="plan-price">$0/month</div>
+                                <button class="btn-secondary">Upgrade to Pro</button>
+                            </div>
+                        </div>
+
+                        <!-- Credit Packages -->
+                        <div class="credit-packages">
+                            <h4>Buy Credits</h4>
+                            <div class="packages-grid">
+                                <div class="package-card">
+                                    <div class="package-credits">100 Credits</div>
+                                    <div class="package-price">$10</div>
+                                    <div class="package-bonus">-</div>
+                                    <button class="btn-primary" data-package="100">Buy Now</button>
+                                </div>
+                                <div class="package-card">
+                                    <div class="package-credits">500 Credits</div>
+                                    <div class="package-price">$40</div>
+                                    <div class="package-bonus">+100 bonus (20% off)</div>
+                                    <button class="btn-primary" data-package="500">Buy Now</button>
+                                </div>
+                                <div class="package-card">
+                                    <div class="package-credits">1000 Credits</div>
+                                    <div class="package-price">$70</div>
+                                    <div class="package-bonus">+300 bonus (30% off)</div>
+                                    <button class="btn-primary" data-package="1000">Buy Now</button>
+                                </div>
+                                <div class="package-card highlight">
+                                    <div class="package-credits">Unlimited</div>
+                                    <div class="package-price">$49/month</div>
+                                    <div class="package-bonus">Pro Membership</div>
+                                    <button class="btn-primary" data-package="unlimited">Subscribe</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Payment Methods -->
+                        <div class="payment-methods">
+                            <h4>💰 Payment Methods Available</h4>
+                            <div class="methods-grid">
+                                <button class="payment-method" id="cbeBtn">
+                                    <span class="method-icon">🏦</span>
+                                    <span class="method-name">CBE Bank (Ethiopia)</span>
+                                </button>
+                                <button class="payment-method" id="paypalBtnBilling">
+                                    <span class="method-icon">🔵</span>
+                                    <span class="method-name">PayPal (Coming Soon)</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Billing History -->
+                        <div class="billing-history">
+                            <h4>Billing History</h4>
+                            <table class="history-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Description</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>2026-06-30</td>
+                                        <td>Account Created</td>
+                                        <td>Free Tier</td>
+                                        <td><span class="badge-success">Active</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Admin Panel Section -->
+                <section id="admin" class="section">
+                    <div class="admin-container">
+                        <h3>👑 Admin Dashboard</h3>
+                        
+                        <!-- Admin Stats -->
+                        <div class="admin-stats">
+                            <div class="admin-stat-card">
+                                <p>Total Users</p>
+                                <p class="admin-stat-value">1</p>
+                            </div>
+                            <div class="admin-stat-card">
+                                <p>Total Revenue</p>
+                                <p class="admin-stat-value">$0</p>
+                            </div>
+                            <div class="admin-stat-card">
+                                <p>Videos Generated</p>
+                                <p class="admin-stat-value">0</p>
+                            </div>
+                            <div class="admin-stat-card">
+                                <p>Active Subscriptions</p>
+                                <p class="admin-stat-value">0</p>
+                            </div>
+                        </div>
+
+                        <!-- Admin Features -->
+                        <div class="admin-section">
+                            <h4>✨ Your Admin Features (FREE LIFETIME)</h4>
+                            <div class="admin-features">
+                                <p>✅ Unlimited video generation</p>
+                                <p>✅ Unlimited image generation</p>
+                                <p>✅ All quality options (360p - 4K)</p>
+                                <p>✅ Full video editor</p>
+                                <p>✅ 0 credit costs</p>
+                                <p>✅ User management</p>
+                                <p>✅ Revenue tracking</p>
+                                <p>✅ Pricing control</p>
+                            </div>
+                        </div>
+
+                        <!-- Payment Settings -->
+                        <div class="admin-section">
+                            <h4>💳 Payment Settings</h4>
+                            <div class="settings-form">
+                                <div class="form-group">
+                                    <label>CBE Account Number</label>
+                                    <input type="text" value="1000674907161" readonly style="background: #0f172a; cursor: not-allowed;">
+                                    <p style="color: #10b981; margin-top: 5px;">✅ Active - Customers can pay here</p>
+                                </div>
+                                <div class="form-group">
+                                    <label>PayPal Email (Add Later)</label>
+                                    <input type="email" id="adminPaypalEmail" placeholder="your@paypal.com">
+                                    <button class="btn-primary" onclick="addPayPalAdmin()">Add PayPal</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Revenue Settings -->
+                        <div class="admin-section">
+                            <h4>💰 Revenue & Settings</h4>
+                            <div class="settings-form">
+                                <div class="form-group">
+                                    <label>Pro Plan Price ($/month)</label>
+                                    <input type="number" id="proPriceInput" value="49">
+                                </div>
+                                <div class="form-group">
+                                    <label>Free Tier Video Limit</label>
+                                    <input type="number" id="freeTierLimit" value="5">
+                                </div>
+                                <button class="btn-primary" onclick="saveAdminSettings()">💾 Save Settings</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Settings Section -->
+                <section id="settings" class="section">
+                    <div class="settings-container">
+                        <h3>⚙️ Settings</h3>
+                        
+                        <div class="settings-group">
+                            <h4>👤 Profile</h4>
+                            <div class="settings-form">
+                                <div class="form-group">
+                                    <label>Full Name</label>
+                                    <input type="text" id="fullName" placeholder="Your name">
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email" id="settingsEmail" placeholder="Your email">
+                                </div>
+                                <button class="btn-primary">Save Profile</button>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <h4>🔐 Security</h4>
+                            <button class="btn-secondary">Change Password</button>
+                            <button class="btn-secondary">Enable 2FA</button>
+                        </div>
+
+                        <div class="settings-group">
+                            <h4>🔔 Notifications</h4>
+                            <label>
+                                <input type="checkbox" checked>
+                                Email notifications
+                            </label>
+                            <label>
+                                <input type="checkbox" checked>
+                                Generation alerts
+                            </label>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- CBE Payment Modal -->
+    <div id="cbeModal" class="modal hidden">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <h2>🏦 CBE Bank Payment</h2>
+            <div class="cbe-details">
+                <p><strong>Amount:</strong> <span id="cbeAmount">$40.00</span></p>
+                <div class="bank-info">
+                    <p><strong>Bank:</strong> Commercial Bank of Ethiopia (CBE)</p>
+                    <p><strong>Account Name:</strong> Benabas Media Studio</p>
+                    <p><strong>Account Number:</strong> 1000674907161</p>
+                    <p><strong>Bank Code:</strong> 11</p>
+                    <p><strong>Reference:</strong> <span id="cbeReference" class="reference-code">BEN-2026-06-30-001</span></p>
+                </div>
+                <div class="instructions">
+                    <h4>Payment Instructions:</h4>
+                    <ol>
+                        <li>Go to any CBE branch or use CBE app</li>
+                        <li>Send transfer to account above</li>
+                        <li>Include reference number in description</li>
+                        <li>Credits will be added within 1-2 hours</li>
+                    </ol>
+                </div>
+                <button class="btn-primary" onclick="confirmCBEPayment()">✅ I've Sent the Payment</button>
+                <p class="confirmation-text">You'll be notified once we receive and verify your payment</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <p id="loadingText">Processing...</p>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="notificationToast" class="notification-toast hidden"></div>
+
+    <script src="script.js"></script>
+    <script src="admin-auth.js"></script>
+</body>
+</html>

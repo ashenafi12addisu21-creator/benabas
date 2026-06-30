@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benabas - Payment Settings</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #020617 0%, #0f172a 100%);
+            color: #f1f5f9;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            color: #94a3b8;
+            font-size: 1.05em;
+        }
+
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .payment-card {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .payment-card h3 {
+            margin-bottom: 20px;
+            font-size: 1.3em;
+            color: #6366f1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: #cbd5e1;
+            font-size: 0.95em;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 12px 14px;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            color: #f1f5f9;
+            font-family: inherit;
+            font-size: 0.95em;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .helper-text {
+            font-size: 0.85em;
+            color: #94a3b8;
+            margin-top: 5px;
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 6px;
+            margin-bottom: 15px;
+            border-left: 3px solid #10b981;
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #10b981;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95em;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            width: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-secondary {
+            background: #334155;
+            color: #f1f5f9;
+        }
+
+        .success-msg {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid #10b981;
+            color: #10b981;
+            padding: 12px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: 600;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .info-box {
+            background: rgba(99, 102, 241, 0.1);
+            border-left: 4px solid #6366f1;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💳 Payment Settings</h1>
+            <p>Manage your payment methods</p>
+        </div>
+
+        <div class="info-box">
+            📢 Configure how customers pay you. CBE Bank is already set up!
+        </div>
+
+        <div class="settings-grid">
+            <!-- CBE Bank -->
+            <div class="payment-card">
+                <h3>🏦 CBE Bank (Active)</h3>
+                <div class="status">
+                    <div class="status-dot"></div>
+                    <span>Customers can pay here now</span>
+                </div>
+                <div class="form-group">
+                    <label>Account Number</label>
+                    <input type="text" value="1000674907161" readonly>
+                    <p class="helper-text">✅ Active and receiving payments</p>
+                </div>
+            </div>
+
+            <!-- PayPal -->
+            <div class="payment-card">
+                <h3>🔵 PayPal (Add Yours)</h3>
+                <div class="form-group">
+                    <label>PayPal Email</label>
+                    <input type="email" id="paypalEmail" placeholder="your@paypal.com">
+                    <p class="helper-text">Create account at paypal.com first</p>
+                </div>
+                <button class="btn" onclick="savePayPal()">💾 Add PayPal</button>
+                <div class="success-msg" id="paypalSuccess">✅ PayPal saved!</div>
+            </div>
+        </div>
+
+        <div class="info-box" style="text-align: center;">
+            ✅ <strong>You're all set!</strong> Customers can pay via CBE Bank.
+            Add PayPal anytime to accept more payment methods.
+        </div>
+
+        <button class="btn" onclick="goToApp()" style="margin-top: 20px;">🚀 Go to App</button>
+    </div>
+
+    <script>
+        function savePayPal() {
+            const email = document.getElementById('paypalEmail').value;
+            if (!email || !email.includes('@')) {
+                alert('❌ Please enter a valid PayPal email');
+                return;
+            }
+            localStorage.setItem('paypal_email', email);
+            document.getElementById('paypalSuccess').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('paypalSuccess').style.display = 'none';
+            }, 3000);
+        }
+
+        function goToApp() {
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
