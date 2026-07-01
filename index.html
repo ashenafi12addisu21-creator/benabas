@@ -60,7 +60,7 @@
                     <p class="credits-value" id="creditDisplay">50</p>
                     <p class="credits-sublabel">Available</p>
                 </div>
-                <button class="btn-buy-credits">🛒 Buy Credits</button>
+                <button class="btn-buy-credits" onclick="showSection('billing')">🛒 Buy Credits</button>
             </div>
         </aside>
 
@@ -97,7 +97,6 @@
                 <!-- Dashboard Section -->
                 <section id="dashboard" class="section active">
                     <div class="dashboard-grid">
-                        <!-- Quick Stats -->
                         <div class="stat-card">
                             <div class="stat-icon">🎬</div>
                             <div class="stat-content">
@@ -135,7 +134,6 @@
                         </div>
                     </div>
 
-                    <!-- Recent Activity -->
                     <div class="recent-activity">
                         <h3>📋 Recent Activity</h3>
                         <div class="activity-list" id="activityList">
@@ -148,17 +146,77 @@
                     </div>
                 </section>
 
-                <!-- Text to Video Section -->
+                <!-- Text to Video Section WITH VOICE -->
                 <section id="text-to-video" class="section">
                     <div class="section-grid">
                         <div class="form-panel">
                             <form id="textToVideoForm">
+                                <!-- Script Input -->
                                 <div class="form-group">
                                     <label>📝 Your Script</label>
-                                    <textarea id="textInput" placeholder="Write your video script here..." rows="6"></textarea>
+                                    <textarea id="textInput" placeholder="Write your video script here..." rows="5"></textarea>
                                     <span class="char-count"><span id="charCount">0</span>/5000</span>
                                 </div>
 
+                                <!-- Voice Settings -->
+                                <div class="voice-section">
+                                    <h4>🎤 Voice Settings</h4>
+                                    
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label>🎙️ Select Voice</label>
+                                            <select id="voiceSelect">
+                                                <option value="nova">Nova (Female - Professional)</option>
+                                                <option value="shimmer">Shimmer (Female - Friendly)</option>
+                                                <option value="echo">Echo (Male - Professional)</option>
+                                                <option value="onyx">Onyx (Male - Deep)</option>
+                                                <option value="fable">Fable (Male - Storytelling)</option>
+                                                <option value="alloy">Alloy (Neutral - Balanced)</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>🌍 Language</label>
+                                            <select id="languageSelect">
+                                                <option value="en">🇬🇧 English</option>
+                                                <option value="es">🇪🇸 Spanish</option>
+                                                <option value="fr">🇫🇷 French</option>
+                                                <option value="de">🇩🇪 German</option>
+                                                <option value="pt">🇵🇹 Portuguese</option>
+                                                <option value="ar">🇸🇦 Arabic</option>
+                                                <option value="am">🇪🇹 Amharic</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label>⚡ Speed</label>
+                                            <select id="speedSelect">
+                                                <option value="0.5">🐢 Slow (0.5x)</option>
+                                                <option value="0.75">📖 Medium Slow (0.75x)</option>
+                                                <option value="1.0" selected>▶️ Normal (1.0x)</option>
+                                                <option value="1.25">⏩ Medium Fast (1.25x)</option>
+                                                <option value="1.5">🚀 Fast (1.5x)</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>🎭 Tone</label>
+                                            <select id="toneSelect">
+                                                <option value="professional">💼 Professional</option>
+                                                <option value="friendly">😊 Friendly</option>
+                                                <option value="energetic">⚡ Energetic</option>
+                                                <option value="calm">😌 Calm</option>
+                                                <option value="casual">👋 Casual</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <button type="button" class="btn-secondary btn-small" id="previewVoiceBtn" onclick="previewVoice()">
+                                        🔊 Preview Voice
+                                    </button>
+                                </div>
+
+                                <!-- Video Settings -->
                                 <div class="form-row">
                                     <div class="form-group">
                                         <label>🤖 AI Provider</label>
@@ -224,6 +282,11 @@
                                 <div class="warning-box" id="warningBox" style="display:none;">
                                     ⚠️ Not enough credits. Please buy more.
                                 </div>
+                                <div id="voicePreviewBox" class="voice-preview-box" style="display:none;">
+                                    <h4>🎤 Voice Preview</h4>
+                                    <p id="voiceInfoText">Select script and voice to preview</p>
+                                    <audio id="voiceAudio" controls style="width: 100%; margin-top: 10px;"></audio>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -282,7 +345,7 @@
                             <form id="textToImageForm">
                                 <div class="form-group">
                                     <label>✨ Image Description</label>
-                                    <textarea id="imagePrompt" placeholder="Describe the image..." rows="6"></textarea>
+                                    <textarea id="imagePrompt" placeholder="Describe the image you want to create..." rows="6"></textarea>
                                 </div>
 
                                 <div class="form-row">
@@ -309,7 +372,7 @@
                         </div>
                         <div class="preview-panel">
                             <div id="generatedImage" class="preview-box">
-                                <p>Generated image</p>
+                                <p>Generated image will appear here</p>
                             </div>
                         </div>
                     </div>
@@ -322,12 +385,12 @@
                         <div class="editor-grid">
                             <div class="editor-tools">
                                 <h4>Editing Tools</h4>
-                                <button class="tool-btn">✂️ Trim</button>
-                                <button class="tool-btn">🔊 Audio</button>
-                                <button class="tool-btn">📝 Subtitles</button>
-                                <button class="tool-btn">🎨 Filters</button>
-                                <button class="tool-btn">⏱️ Speed</button>
-                                <button class="tool-btn">🎵 Music</button>
+                                <button class="tool-btn" onclick="showNotification('✂️ Trim feature coming soon!')">✂️ Trim</button>
+                                <button class="tool-btn" onclick="showNotification('🔊 Audio adjustment coming soon!')">🔊 Audio</button>
+                                <button class="tool-btn" onclick="showNotification('📝 Subtitles feature coming soon!')">📝 Subtitles</button>
+                                <button class="tool-btn" onclick="showNotification('🎨 Filters feature coming soon!')">🎨 Filters</button>
+                                <button class="tool-btn" onclick="showNotification('⏱️ Speed control coming soon!')">⏱️ Speed</button>
+                                <button class="tool-btn" onclick="showNotification('🎵 Music library coming soon!')">🎵 Music</button>
                             </div>
                             <div class="editor-preview">
                                 <p>Video editor - Professional editing tools</p>
@@ -359,18 +422,16 @@
                     <div class="billing-container">
                         <h3>💳 Billing & Credits</h3>
                         
-                        <!-- Current Plan -->
                         <div class="current-plan">
                             <h4>Current Plan</h4>
                             <div class="plan-card">
                                 <div class="plan-name">Free Tier</div>
                                 <div class="plan-limit">5 videos/month</div>
                                 <div class="plan-price">$0/month</div>
-                                <button class="btn-secondary">Upgrade to Pro</button>
+                                <button class="btn-secondary" onclick="showNotification('Pro upgrade coming soon!')">Upgrade to Pro</button>
                             </div>
                         </div>
 
-                        <!-- Credit Packages -->
                         <div class="credit-packages">
                             <h4>Buy Credits</h4>
                             <div class="packages-grid">
@@ -378,45 +439,43 @@
                                     <div class="package-credits">100 Credits</div>
                                     <div class="package-price">$10</div>
                                     <div class="package-bonus">-</div>
-                                    <button class="btn-primary" data-package="100">Buy Now</button>
+                                    <button class="btn-primary" data-package="100" onclick="buyCredits(100, 10)">Buy Now</button>
                                 </div>
                                 <div class="package-card">
                                     <div class="package-credits">500 Credits</div>
                                     <div class="package-price">$40</div>
                                     <div class="package-bonus">+100 bonus (20% off)</div>
-                                    <button class="btn-primary" data-package="500">Buy Now</button>
+                                    <button class="btn-primary" data-package="500" onclick="buyCredits(500, 40)">Buy Now</button>
                                 </div>
                                 <div class="package-card">
                                     <div class="package-credits">1000 Credits</div>
                                     <div class="package-price">$70</div>
                                     <div class="package-bonus">+300 bonus (30% off)</div>
-                                    <button class="btn-primary" data-package="1000">Buy Now</button>
+                                    <button class="btn-primary" data-package="1000" onclick="buyCredits(1000, 70)">Buy Now</button>
                                 </div>
                                 <div class="package-card highlight">
                                     <div class="package-credits">Unlimited</div>
                                     <div class="package-price">$49/month</div>
                                     <div class="package-bonus">Pro Membership</div>
-                                    <button class="btn-primary" data-package="unlimited">Subscribe</button>
+                                    <button class="btn-primary" data-package="unlimited" onclick="showNotification('Pro subscription coming soon!')">Subscribe</button>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Payment Methods -->
                         <div class="payment-methods">
                             <h4>💰 Payment Methods Available</h4>
                             <div class="methods-grid">
-                                <button class="payment-method" id="cbeBtn">
+                                <button class="payment-method" id="cbeBtn" onclick="showCBEModal()">
                                     <span class="method-icon">🏦</span>
                                     <span class="method-name">CBE Bank (Ethiopia)</span>
                                 </button>
-                                <button class="payment-method" id="paypalBtnBilling">
+                                <button class="payment-method" id="paypalBtnBilling" onclick="showNotification('PayPal coming soon!')">
                                     <span class="method-icon">🔵</span>
                                     <span class="method-name">PayPal (Coming Soon)</span>
                                 </button>
                             </div>
                         </div>
 
-                        <!-- Billing History -->
                         <div class="billing-history">
                             <h4>Billing History</h4>
                             <table class="history-table">
@@ -446,7 +505,6 @@
                     <div class="admin-container">
                         <h3>👑 Admin Dashboard</h3>
                         
-                        <!-- Admin Stats -->
                         <div class="admin-stats">
                             <div class="admin-stat-card">
                                 <p>Total Users</p>
@@ -466,7 +524,6 @@
                             </div>
                         </div>
 
-                        <!-- Admin Features -->
                         <div class="admin-section">
                             <h4>✨ Your Admin Features (FREE LIFETIME)</h4>
                             <div class="admin-features">
@@ -481,7 +538,6 @@
                             </div>
                         </div>
 
-                        <!-- Payment Settings -->
                         <div class="admin-section">
                             <h4>💳 Payment Settings</h4>
                             <div class="settings-form">
@@ -498,7 +554,6 @@
                             </div>
                         </div>
 
-                        <!-- Revenue Settings -->
                         <div class="admin-section">
                             <h4>💰 Revenue & Settings</h4>
                             <div class="settings-form">
@@ -532,14 +587,14 @@
                                     <label>Email</label>
                                     <input type="email" id="settingsEmail" placeholder="Your email">
                                 </div>
-                                <button class="btn-primary">Save Profile</button>
+                                <button class="btn-primary" onclick="showNotification('Profile updated!')">Save Profile</button>
                             </div>
                         </div>
 
                         <div class="settings-group">
                             <h4>🔐 Security</h4>
-                            <button class="btn-secondary">Change Password</button>
-                            <button class="btn-secondary">Enable 2FA</button>
+                            <button class="btn-secondary" onclick="showNotification('Password change coming soon!')">Change Password</button>
+                            <button class="btn-secondary" onclick="showNotification('2FA setup coming soon!')">Enable 2FA</button>
                         </div>
 
                         <div class="settings-group">
@@ -563,7 +618,7 @@
     <!-- CBE Payment Modal -->
     <div id="cbeModal" class="modal hidden">
         <div class="modal-content">
-            <button class="modal-close">&times;</button>
+            <button class="modal-close" onclick="closeCBEModal()">&times;</button>
             <h2>🏦 CBE Bank Payment</h2>
             <div class="cbe-details">
                 <p><strong>Amount:</strong> <span id="cbeAmount">$40.00</span></p>
@@ -600,7 +655,6 @@
     <!-- Notification Toast -->
     <div id="notificationToast" class="notification-toast hidden"></div>
 
-    <script src="script.js"></script>
-    <script src="admin-auth.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
